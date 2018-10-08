@@ -2,7 +2,12 @@
   "extends": [
     "@jedwards1211/eslint-config", "@jedwards1211/eslint-config-flow"
   ],
+  "parserOptions": {
+    "ecmaVersion": 9,
+    "sourceType": "module"
+  },
   "env": {
-    "commonjs": true
+    "node": true,
+    "es6": true
   }
 }

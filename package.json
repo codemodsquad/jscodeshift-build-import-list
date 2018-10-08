@@ -1,10 +1,13 @@
 {
-  "name": "untranspiled-js-library-skeleton",
+  "name": "jscodeshift-build-import-list",
   "version": "1.0.0",
-  "description": "my skeleton for transpiler-free JS packages",
+  "description": "build a list of all files and dependencies transitively imported by starting file(s)",
   "main": "index.js",
   "author": "Andy Edwards",
   "license": "MIT",
+  "engines": {
+    "node": ">=8.0.0"
+  },
   "scripts": {
     "lint": "eslint *.js test --cache",
     "lint:fix": "eslint --fix *.js test --cache",
@@ -24,7 +27,7 @@
     "travis-deploy-once": "travis-deploy-once"
   },
   "config": {
-    "mocha": "./test/**/*.js",
+    "mocha": "./test/*.js",
     "commitizen": {
       "path": "cz-conventional-changelog"
     }
@@ -39,15 +42,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jedwards1211/untranspiled-js-library-skeleton.git"
+    "url": "https://github.com/jedwards1211/jscodeshift-build-import-list.git"
   },
-  "keywords": [
-    "skeleton"
-  ],
+  "keywords": "jscodeshift",
   "bugs": {
-    "url": "https://github.com/jedwards1211/untranspiled-js-library-skeleton/issues"
+    "url": "https://github.com/jedwards1211/jscodeshift-build-import-list/issues"
   },
-  "homepage": "https://github.com/jedwards1211/untranspiled-js-library-skeleton#readme",
+  "homepage": "https://github.com/jedwards1211/jscodeshift-build-import-list#readme",
   "devDependencies": {
     "@commitlint/cli": "^6.0.2",
     "@commitlint/config-conventional": "^6.0.2",
@@ -67,5 +68,9 @@
     "nyc": "^11.4.1",
     "semantic-release": "^12.4.1",
     "travis-deploy-once": "^4.3.3"
+  },
+  "dependencies": {
+    "fs-extra": "^7.0.0",
+    "jscodeshift": "^0.5.1"
   }
 }
