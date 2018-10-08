@@ -11,7 +11,7 @@ const isTrueRequire = path => path.scope.getBindings().require == null
 async function buildImportList(startingFiles) {
   if (typeof startingFiles === 'string') startingFiles = [startingFiles]
 
-  const files = new Set(startingFiles)
+  const files = new Set(startingFiles.map(file => path.resolve(file)))
   const dependencies = new Set()
 
   async function processImport(file, moduleName) {
@@ -62,7 +62,7 @@ async function buildImportList(startingFiles) {
     ))
   }
 
-  await Promise.all(startingFiles.map(file => processFile(path.resolve(file))))
+  await Promise.all(startingFiles.map(processFile))
 
   return {files, dependencies}
 }

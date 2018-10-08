@@ -10,12 +10,11 @@ describe('buildImportList', function () {
       path.relative(process.cwd(), require.resolve('./project/server')),
     ])
     expect([...files].sort()).to.deep.equal([
-      '/Users/andy/jscodeshift-build-import-list/test/project/server/index.js',
-      '/Users/andy/jscodeshift-build-import-list/test/project/universal/bar.js',
-      '/Users/andy/jscodeshift-build-import-list/test/project/universal/foo.js',
-      '/Users/andy/jscodeshift-build-import-list/test/project/universal/render.js',
-      'test/project/index.js',
-      'test/project/server/index.js',
+      require.resolve('./project/index.js'),
+      require.resolve('./project/server/index.js'),
+      require.resolve('./project/universal/bar.js'),
+      require.resolve('./project/universal/foo.js'),
+      require.resolve('./project/universal/render.js'),
     ])
     expect([...dependencies].sort()).to.deep.equal([
       '@jcoreio/gridutil',
