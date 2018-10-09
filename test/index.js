@@ -12,6 +12,9 @@ describe('buildImportList', function () {
     expect([...files].sort()).to.deep.equal([
       require.resolve('./project/index.js'),
       require.resolve('./project/server/index.js'),
+      require.resolve('./project/server/models/Post.js'),
+      require.resolve('./project/server/models/User.js'),
+      require.resolve('./project/server/models/index.js'),
       require.resolve('./project/universal/bar.js'),
       require.resolve('./project/universal/foo.js'),
       require.resolve('./project/universal/render.js'),
@@ -20,6 +23,8 @@ describe('buildImportList', function () {
       '@jcoreio/gridutil',
       'express',
       'lodash',
+      'require-glob',
+      'sequelize',
     ])
   })
   it(`throws on dynamic require`, async function () {
@@ -27,7 +32,7 @@ describe('buildImportList', function () {
       await buildImportList(require.resolve('./project/universal/dynamicRequire'))
       throw new Error('expected an error')
     } catch (error) {
-      expect(error.message).to.match(/unsupported dynamic require path/i)
+      expect(error.message).to.match(/unsupported dynamic path/i)
     }
   })
   it(`throws on dynamic import`, async function () {
@@ -35,7 +40,7 @@ describe('buildImportList', function () {
       await buildImportList(require.resolve('./project/universal/dynamicImport'))
       throw new Error('expected an error')
     } catch (error) {
-      expect(error.message).to.match(/unsupported dynamic import path/i)
+      expect(error.message).to.match(/unsupported dynamic path/i)
     }
   })
 })

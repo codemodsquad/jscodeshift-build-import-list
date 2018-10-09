@@ -18,7 +18,9 @@ npm install --save-dev jscodeshift-build-import-list
 Requires Node >= 8.
 
 Dynamic `require()` and `import()` paths are not supported; an `Error` will be
-thrown if dynamic path is encountered.
+thrown if dynamic path is encountered.  However, it does support calls
+to [`require-glob`](https://github.com/shannonmoeller/require-glob) with a
+string literal argument.
 
 # API
 
