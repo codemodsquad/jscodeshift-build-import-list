@@ -8,7 +8,7 @@ const fs = require('fs-extra')
 const fileModuleNamePattern = /^[./]/
 const packageNamePattern = /^(@(.+?)\/)?([^/]+)/
 
-const isTrueRequire = path => path.scope.getBindings().require == null
+const isTrueRequire = path => path.scope.lookup('require') == null
 
 async function buildImportList(startingFiles) {
   if (typeof startingFiles === 'string') startingFiles = [startingFiles]
