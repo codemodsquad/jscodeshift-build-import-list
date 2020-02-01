@@ -42,13 +42,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jedwards1211/jscodeshift-build-import-list.git"
+    "url": "https://github.com/codemodsquad/jscodeshift-build-import-list.git"
   },
   "keywords": "jscodeshift",
   "bugs": {
-    "url": "https://github.com/jedwards1211/jscodeshift-build-import-list/issues"
+    "url": "https://github.com/codemodsquad/jscodeshift-build-import-list/issues"
   },
-  "homepage": "https://github.com/jedwards1211/jscodeshift-build-import-list#readme",
+  "homepage": "https://github.com/codemodsquad/jscodeshift-build-import-list#readme",
   "devDependencies": {
     "@commitlint/cli": "^6.0.2",
     "@commitlint/config-conventional": "^6.0.2",
