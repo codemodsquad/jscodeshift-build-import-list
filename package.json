@@ -63,7 +63,9 @@
     "type": "git",
     "url": "https://github.com/codemodsquad/jscodeshift-build-import-list.git"
   },
-  "keywords": "jscodeshift",
+  "keywords": [
+    "jscodeshift"
+  ],
   "bugs": {
     "url": "https://github.com/codemodsquad/jscodeshift-build-import-list/issues"
   },
