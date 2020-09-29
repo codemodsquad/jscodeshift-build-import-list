@@ -34,9 +34,9 @@ the files imported by them, and sort forth.
 
 The file(s) to start from.
 
-### Returns (`{files: Set<string>, dependencies: Set<string>}`)
+### Returns (`Promise<{files: Set<string>, dependencies: Set<string>}>`)
 
-An object with two properties:
+A `Promise` that will resolve to an object with two properties:
 
 #### `files`
 
