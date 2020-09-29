@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:8
+      - image: circleci/node:12.16
 
     steps:
       - checkout
@@ -14,9 +14,9 @@ jobs:
       - run:
           name: Setup NPM Token
           command: |
-              yarn config set registry "https://registry.npmjs.org/"
-              echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
-              echo "registry=https://registry.npmjs.org/" >> .npmrc
+            yarn config set registry "https://registry.npmjs.org/"
+            echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
+            echo "registry=https://registry.npmjs.org/" >> .npmrc
 
       - run:
           name: Install Dependencies
