@@ -1,14 +1,18 @@
-const j = require('jscodeshift').withParser('babylon')
+const j = require('jscodeshift')
+const chooseParser = require('jscodeshift-choose-parser')
 const glob = require('glob')
 const { promisify } = require('es6-promisify')
 const recast = require('recast')
 const path = require('path')
 const fs = require('fs-extra')
+const resolve = require('resolve')
 
 const fileModuleNamePattern = /^[./]/
 const packageNamePattern = /^(@(.+?)\/)?([^/]+)/
 
 const isTrueRequire = path => path.scope.lookup('require') == null
+
+const extensions = ['.js', '.jsx', '.ts', '.tsx']
 
 async function buildImportList(startingFiles) {
   if (typeof startingFiles === 'string') startingFiles = [startingFiles]
@@ -19,9 +23,11 @@ async function buildImportList(startingFiles) {
   async function processImport(file, moduleName) {
     const isFileModuleName = fileModuleNamePattern.test(moduleName)
     if (isFileModuleName) {
-      moduleName = require.resolve(moduleName, {
-        paths: [path.dirname(file)],
+      moduleName = await promisify(resolve)(moduleName, {
+        basedir: path.dirname(file),
+        extensions,
       })
+      if (!moduleName) return
       if (files.has(moduleName)) return
       files.add(moduleName)
       await processFile(moduleName)
@@ -36,7 +42,7 @@ async function buildImportList(startingFiles) {
 
   async function processFile(file) {
     const code = await fs.readFile(file, 'utf8')
-    const root = j(code)
+    const root = j.withParser(chooseParser(file))(code)
 
     await Promise.all(
       root
@@ -79,9 +85,9 @@ async function buildImportList(startingFiles) {
           const arg = node.arguments[0]
           if (!arg) return
           if (arg.type !== 'StringLiteral') {
-            throw new Error(`unsupported dynamic path in ${file} (${
+            throw new Error(`unsupported dynamic path in ${file}:${
               node.loc.start.line
-            }:${node.loc.start.column}):
+            }:${node.loc.start.column}:
   ${recast.print(node).code}`)
           }
           return await processImport(file, arg.value)
