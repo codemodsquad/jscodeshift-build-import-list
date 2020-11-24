@@ -20,6 +20,28 @@ async function buildImportList(startingFiles) {
   const files = new Set(startingFiles.map(file => path.resolve(file)))
   const dependencies = new Set()
 
+  const isIgnoreComment = c =>
+    /(^|\b)jscodeshift-build-import-list\s+ignore($|\b)/.test(c.value)
+
+  function isNotIgnored(path) {
+    const statement = j([path])
+      .closest(j.Statement)
+      .paths()[0]
+    const statementNode = statement ? statement.node : null
+    while (path != null) {
+      const { node } = path
+      if (
+        node &&
+        node.leadingComments &&
+        node.leadingComments.find(isIgnoreComment)
+      )
+        return false
+      if (path === statement || path.node === statementNode) break
+      path = path.parent
+    }
+    return true
+  }
+
   async function processImport(file, moduleName) {
     const isFileModuleName = fileModuleNamePattern.test(moduleName)
     if (isFileModuleName) {
@@ -48,6 +70,7 @@ async function buildImportList(startingFiles) {
       root
         .find(j.CallExpression)
         .filter(isRequireGlob(root))
+        .filter(isNotIgnored)
         .nodes()
         .map(async node => {
           const { arguments: args } = node
@@ -68,6 +91,7 @@ async function buildImportList(startingFiles) {
     await Promise.all(
       root
         .find(j.ImportDeclaration)
+        .filter(isNotIgnored)
         .nodes()
         .map(node => processImport(file, node.source.value))
     )
@@ -80,6 +104,7 @@ async function buildImportList(startingFiles) {
             (path.node.callee.name === 'require' && isTrueRequire(path)) ||
             path.node.callee.type === 'Import'
         )
+        .filter(isNotIgnored)
         .nodes()
         .map(async node => {
           const arg = node.arguments[0]

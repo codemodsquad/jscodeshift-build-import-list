@@ -19,9 +19,11 @@ npm install --save-dev jscodeshift-build-import-list
 Requires Node >= 8.
 
 Dynamic `require()` and `import()` paths are not supported; an `Error` will be
-thrown if dynamic path is encountered. However, it does support calls
-to [`require-glob`](https://github.com/shannonmoeller/require-glob) with a
-string literal argument.
+thrown if dynamic path is encountered (unless you have a leading comment containing
+`@jscodeshift-build-import-list ignore`).
+
+However, calls to [`require-glob`](https://github.com/shannonmoeller/require-glob)
+with a string literal argument are supported.
 
 # API
 
@@ -45,3 +47,13 @@ A `Set` of local files transitively imported by the starting file(s)
 #### `dependencies`
 
 A `Set` of npm packages transitively imported by the starting file(s)
+
+### Ignoring requires/imports
+
+Add a leading comment containing `@jscodeshift-build-import-list ignore`, for example:
+
+```js
+// @jscodeshift-build-import-list ignore
+import foo from 'foo'
+const bar = /* @jscodeshift-build-import-list ignore */ require(getBarPath())
+```
