@@ -11,7 +11,6 @@
   "scripts": {
     "lint": "eslint *.js test --cache",
     "lint:fix": "eslint --fix *.js test --cache",
-    "lint:watch": "esw --watch *.js test --cache",
     "prettier": "prettier --write *.js 'test/**/*.js' *.json *.md",
     "prettier:check": "prettier --list-different *.js 'test/**/*.js' *.json *.md",
     "test": "cross-env NODE_ENV=test nyc --reporter=lcov --reporter=text mocha $npm_package_config_mocha",
@@ -31,8 +30,7 @@
   },
   "lint-staged": {
     "*.{js,json,css,md}": [
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ]
   },
   "config": {
@@ -71,42 +69,22 @@
   },
   "homepage": "https://github.com/codemodsquad/jscodeshift-build-import-list#readme",
   "devDependencies": {
-    "@commitlint/cli": "^6.0.2",
-    "@commitlint/config-conventional": "^6.0.2",
-    "@jedwards1211/commitlint-config": "^1.0.0",
-    "@jedwards1211/eslint-config": "^2.0.0",
-    "chai": "^4.1.2",
-    "codecov": "^3.0.0",
-    "cross-env": "^5.2.0",
-    "eslint": "^4.16.0",
-    "eslint-config-prettier": "^3.3.0",
-    "eslint-watch": "^3.1.3",
-    "husky": "^1.1.4",
-    "istanbul": "^0.4.5",
-    "lint-staged": "^8.0.4",
-    "mocha": "^6.2.1",
-    "nyc": "^11.4.1",
-    "prettier": "^1.15.1",
-    "prettier-eslint": "^8.8.2",
-    "semantic-release": "^15.13.3"
-  },
-  "renovate": {
-    "extends": [
-      ":separateMajorReleases",
-      ":combinePatchMinorReleases",
-      ":ignoreUnstable",
-      ":prImmediately",
-      ":renovatePrefix",
-      ":updateNotScheduled",
-      ":preserveSemverRanges",
-      ":semanticPrefixFix",
-      ":automergeDisabled",
-      "group:monorepos"
-    ],
-    "automerge": true,
-    "major": {
-      "automerge": false
-    }
+    "@commitlint/cli": "^13.2.0",
+    "@commitlint/config-conventional": "^13.2.0",
+    "@jedwards1211/commitlint-config": "^1.0.2",
+    "@jedwards1211/eslint-config": "^2.0.2",
+    "chai": "^4.3.4",
+    "codecov": "^3.8.3",
+    "cross-env": "^7.0.3",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "husky": "^7.0.2",
+    "lint-staged": "^11.1.2",
+    "mocha": "^9.1.2",
+    "nyc": "^15.1.0",
+    "prettier": "^2.4.1",
+    "prettier-eslint": "^13.0.0",
+    "semantic-release": "^18.0.0"
   },
   "dependencies": {
     "@babel/core": "^7.16.0",

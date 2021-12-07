@@ -10,23 +10,21 @@ const resolve = require('resolve')
 const fileModuleNamePattern = /^[./]/
 const packageNamePattern = /^(@(.+?)\/)?([^/]+)/
 
-const isTrueRequire = path => path.scope.lookup('require') == null
+const isTrueRequire = (path) => path.scope.lookup('require') == null
 
 const extensions = ['.js', '.jsx', '.ts', '.tsx']
 
 async function buildImportList(startingFiles) {
   if (typeof startingFiles === 'string') startingFiles = [startingFiles]
 
-  const files = new Set(startingFiles.map(file => path.resolve(file)))
+  const files = new Set(startingFiles.map((file) => path.resolve(file)))
   const dependencies = new Set()
 
-  const isIgnoreComment = c =>
+  const isIgnoreComment = (c) =>
     /(^|\b)jscodeshift-build-import-list\s+ignore($|\b)/.test(c.value)
 
   function isNotIgnored(path) {
-    const statement = j([path])
-      .closest(j.Statement)
-      .paths()[0]
+    const statement = j([path]).closest(j.Statement).paths()[0]
     const statementNode = statement ? statement.node : null
     while (path != null) {
       const { node } = path
@@ -72,7 +70,7 @@ async function buildImportList(startingFiles) {
         .filter(isRequireGlob(root))
         .filter(isNotIgnored)
         .nodes()
-        .map(async node => {
+        .map(async (node) => {
           const { arguments: args } = node
           if (args.length !== 1 || args[0].type !== 'StringLiteral') {
             throw new Error(`unsupported complex require-glob in ${file} (${
@@ -84,7 +82,7 @@ async function buildImportList(startingFiles) {
             path.resolve(path.dirname(file), args[0].value)
           )
           await Promise.all(
-            files.map(moduleName => processImport(file, moduleName))
+            files.map((moduleName) => processImport(file, moduleName))
           )
         })
     )
@@ -93,20 +91,20 @@ async function buildImportList(startingFiles) {
         .find(j.ImportDeclaration)
         .filter(isNotIgnored)
         .nodes()
-        .map(node => processImport(file, node.source.value))
+        .map((node) => processImport(file, node.source.value))
     )
 
     await Promise.all(
       root
         .find(j.CallExpression)
         .filter(
-          path =>
+          (path) =>
             (path.node.callee.name === 'require' && isTrueRequire(path)) ||
             path.node.callee.type === 'Import'
         )
         .filter(isNotIgnored)
         .nodes()
-        .map(async node => {
+        .map(async (node) => {
           const arg = node.arguments[0]
           if (!arg) return
           if (arg.type !== 'StringLiteral') {
@@ -131,7 +129,7 @@ function findRequireGlobBinding(root) {
     source: { value: 'require-glob' },
   })
   if (requireGlobImport.size())
-    requireGlobImport.find(j.ImportDefaultSpecifier).forEach(path => {
+    requireGlobImport.find(j.ImportDefaultSpecifier).forEach((path) => {
       requireGlobBinding = path.node.local
     })
   if (requireGlobBinding) return requireGlobBinding
@@ -147,7 +145,7 @@ function findRequireGlobBinding(root) {
 
 function isRequireGlob(root) {
   const requireGlobBinding = findRequireGlobBinding(root)
-  return _path => {
+  return (_path) => {
     const { node, scope } = _path
     const { callee } = node
     if (requireGlobBinding) {
@@ -198,14 +196,14 @@ if (!module.parent) {
   module.exports(process.argv.slice(2)).then(
     ({ files, dependencies }) => {
       console.log('Files:') // eslint-disable-line no-console
-      ;[...files].sort().forEach(file => console.log(' ', file)) // eslint-disable-line no-console
+      ;[...files].sort().forEach((file) => console.log(' ', file)) // eslint-disable-line no-console
       console.log('Dependencies:') // eslint-disable-line no-console
       ;[...dependencies]
         .sort()
-        .forEach(dependencies => console.log(' ', dependencies)) // eslint-disable-line no-console
+        .forEach((dependencies) => console.log(' ', dependencies)) // eslint-disable-line no-console
       process.exit(0)
     },
-    err => {
+    (err) => {
       console.error(err.stack) // eslint-disable-line no-console
       process.exit(1)
     }

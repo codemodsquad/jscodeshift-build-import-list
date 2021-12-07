@@ -3,8 +3,8 @@ const { expect } = require('chai')
 const buildImportList = require('..')
 const path = require('path')
 
-describe('buildImportList', function() {
-  it(`works`, async function() {
+describe('buildImportList', function () {
+  it(`works`, async function () {
     const { files, dependencies } = await buildImportList([
       path.relative(process.cwd(), require.resolve('./project')),
       path.relative(process.cwd(), require.resolve('./project/server')),
@@ -27,7 +27,7 @@ describe('buildImportList', function() {
       'sequelize',
     ])
   })
-  it(`throws on dynamic require`, async function() {
+  it(`throws on dynamic require`, async function () {
     try {
       await buildImportList(
         require.resolve('./project/universal/dynamicRequire')
@@ -37,7 +37,7 @@ describe('buildImportList', function() {
       expect(error.message).to.match(/unsupported dynamic path/i)
     }
   })
-  it(`throws on dynamic import`, async function() {
+  it(`throws on dynamic import`, async function () {
     try {
       await buildImportList(
         require.resolve('./project/universal/dynamicImport')
