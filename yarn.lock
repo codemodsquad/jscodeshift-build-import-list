@@ -284,7 +284,7 @@
     chalk "^2.0.0"
     js-tokens "^4.0.0"
 
-"@babel/parser@^7.13.16", "@babel/parser@^7.16.0", "@babel/parser@^7.16.3":
+"@babel/parser@^7.13.13", "@babel/parser@^7.13.16", "@babel/parser@^7.16.0", "@babel/parser@^7.16.3":
   version "7.16.4"
   resolved "https://registry.npmjs.org/@babel/parser/-/parser-7.16.4.tgz#d5f92f57cf2c74ffe9b37981c0e72fee7311372e"
   integrity sha512-6V0qdPUaiVHH3RtZeLIsc+6pDhbYzHR8ogA8w+f+Wc77DuXto19g2QUwveINoS34Uw+W8/hQDGJCx+i4n7xcng==
@@ -946,6 +946,13 @@
     pirates "^4.0.0"
     source-map-support "^0.5.16"
 
+"@babel/runtime@^7.12.5":
+  version "7.16.3"
+  resolved "https://registry.npmjs.org/@babel/runtime/-/runtime-7.16.3.tgz#b86f0db02a04187a3c17caa77de69840165d42d5"
+  integrity sha512-WBwekcqacdY2e9AF/Q7WLFUWmdJGJTkbjqTjoMDgXkVZ3ZRUvOPsLb5KdwISoQVsbP+DQzVZW4Zhci0DvpbNTQ==
+  dependencies:
+    regenerator-runtime "^0.13.4"
+
 "@babel/runtime@^7.8.4":
   version "7.9.6"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.9.6.tgz#a9102eb5cadedf3f31d08a9ecf294af7827ea29f"
@@ -977,7 +984,7 @@
     debug "^4.1.0"
     globals "^11.1.0"
 
-"@babel/types@^7.16.0":
+"@babel/types@^7.13.14", "@babel/types@^7.16.0":
   version "7.16.0"
   resolved "https://registry.npmjs.org/@babel/types/-/types-7.16.0.tgz#db3b313804f96aadd0b776c4823e127ad67289ba"
   integrity sha512-PJgg/k3SdLsGb3hhisFvtLOw5ts113klrpLuIPtCJIU+BB24fqq6lf8RWqKJEjzqXR9AEH1rIb5XTqwBHB+kQg==
@@ -1668,6 +1675,16 @@ babel-messages@^6.23.0:
   integrity sha1-8830cDhYA1sqKVHG7F7fbGLyYw4=
   dependencies:
     babel-runtime "^6.22.0"
+
+babel-parse-wild-code@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.npmjs.org/babel-parse-wild-code/-/babel-parse-wild-code-1.1.1.tgz#c99cdbaf9aac3933fa2dfd90f4be180d53a8f299"
+  integrity sha512-926fqbqPlp01ltB1NBBGqGeZKhO3Ia14VCaH1Hj1R2kDGMtIddP4muefO/bg8bsBRKD1rbarsy8/ZYPkVx0bYQ==
+  dependencies:
+    "@babel/parser" "^7.13.13"
+    "@babel/runtime" "^7.12.5"
+    "@babel/types" "^7.13.14"
+    resolve "^1.20.0"
 
 babel-plugin-dynamic-import-node@^2.3.3:
   version "2.3.3"
@@ -4106,11 +4123,6 @@ into-stream@^4.0.0:
     from2 "^2.1.1"
     p-is-promise "^2.0.0"
 
-invalidate-require-cache@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/invalidate-require-cache/-/invalidate-require-cache-1.0.0.tgz#7be817287ff6adbb6e8e233e7e4a0444af8a540a"
-  integrity sha512-3aVHx42pg3GoimLy81TZoLripzJrgaLgABn8itsN2y0n6ykwO39MQO7WdzzUcul02H+FoGg84VD55ovQveXdZg==
-
 invariant@^2.2.2:
   version "2.2.4"
   resolved "https://registry.yarnpkg.com/invariant/-/invariant-2.2.4.tgz#610f3c92c9359ce1db616e538008d23ff35158e6"
@@ -4652,14 +4664,6 @@ jsbn@~0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/jsbn/-/jsbn-0.1.1.tgz#a5e654c2e5a2deb5f201d96cefbca80c0ef2f513"
   integrity sha1-peZUwuWi3rXyAdls77yoDA7y9RM=
-
-jscodeshift-choose-parser@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/jscodeshift-choose-parser/-/jscodeshift-choose-parser-2.0.0.tgz#1001917239515e46690da5a66f3de1fb2bb484fe"
-  integrity sha512-wQKZYoohvYb9g/nYGs6vrzjtaDHN6fm2FtXwOhWpUcHYjyn/MQ+5e84coMnquVKkpXITyb6vjB3XIWoTLzAPzQ==
-  dependencies:
-    invalidate-require-cache "^1.0.0"
-    resolve "^1.15.0"
 
 jscodeshift@^0.13.0:
   version "0.13.0"
@@ -7226,7 +7230,7 @@ resolve@1.1.x:
   resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.1.7.tgz#203114d82ad2c5ed9e8e0411b3932875e889e97b"
   integrity sha1-IDEU2CrSxe2ejgQRs5ModeiJ6Xs=
 
-resolve@^1.14.2:
+resolve@^1.14.2, resolve@^1.20.0:
   version "1.20.0"
   resolved "https://registry.npmjs.org/resolve/-/resolve-1.20.0.tgz#629a013fb3f70755d6f0b7935cc1c2c5378b1975"
   integrity sha512-wENBPt4ySzg4ybFQW2TT1zMQucPK95HSh/nq2CFTZVOGut2+pQvSsgtda4d26YrYcr067wjbmzOG8byDPBX63A==
@@ -7234,7 +7238,7 @@ resolve@^1.14.2:
     is-core-module "^2.2.0"
     path-parse "^1.0.6"
 
-resolve@^1.15.0, resolve@^1.17.0:
+resolve@^1.17.0:
   version "1.17.0"
   resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.17.0.tgz#b25941b54968231cc2d1bb76a79cb7f2c0bf8444"
   integrity sha512-ic+7JYiV8Vi2yzQGFWOkiZD5Z9z7O2Zhm9XMaTxdJExKasieFCr+yXZ/WmXsckHiKl12ar0y6XiXDx3m4RHn1w==

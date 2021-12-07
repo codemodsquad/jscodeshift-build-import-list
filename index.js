@@ -1,5 +1,5 @@
 const j = require('jscodeshift')
-const chooseParser = require('jscodeshift-choose-parser')
+const { getParserSync } = require('babel-parse-wild-code')
 const glob = require('glob')
 const { promisify } = require('es6-promisify')
 const recast = require('recast')
@@ -64,7 +64,7 @@ async function buildImportList(startingFiles) {
 
   async function processFile(file) {
     const code = await fs.readFile(file, 'utf8')
-    const root = j.withParser(chooseParser(file))(code)
+    const root = j.withParser(getParserSync(file, { tokens: true }))(code)
 
     await Promise.all(
       root
